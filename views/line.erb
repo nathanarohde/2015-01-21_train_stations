@@ -1,0 +1,24 @@
+<h1>Add a station to <%= @line.line_info() %> </h1>
+<form action="/stations" method="post">
+  <input type="hidden" name="line_id" id="line_id" value="<%= @line.id() %>">
+
+  <label for="station_info">Station name:</label>
+  <input type="text" name="station_info" id="station_info">
+
+  <button type="submit">Add Station</button>
+
+</form>
+
+<% if @line.stations().any?() %>
+<h3>Here are all the stations on this line:</h3>
+
+<ul>
+  <% @line.stations().each() do |station|%>
+  <li><%= station.station_info() %></li>
+  <% end%>
+</ul>
+<%else %>
+<p> There are no stations yet. </p>
+<% end %>
+
+<a href='/'>Return to Main Page</a>

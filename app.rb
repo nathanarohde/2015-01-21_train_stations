@@ -30,7 +30,7 @@ post("/lines") do
 end
 
 
-get("/line/:id") do
+get("/lines/:id") do
   @line = Line.find(params.fetch("id").to_i())
   erb(:line)
 end
