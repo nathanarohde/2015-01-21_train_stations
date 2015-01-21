@@ -12,15 +12,6 @@ get('/') do
   erb(:index)
 end
 
-post("/stations") do
-  station_info = params.fetch("station_info")
-  line_id = params.fetch("line_id").to_i()
-  station = Station.new({:station_info => station_info, :line_id => line_id})
-  station.save()
-  @line = Line.find(line_id)
-  erb(:line)
-end
-
 post("/lines") do
   line_info = params.fetch("line_info")
   line = Line.new({:line_info => line_info, :id => nil})
@@ -29,8 +20,36 @@ post("/lines") do
   erb(:index)
 end
 
-
 get("/lines/:id") do
-  @line = Line.find(params.fetch("id").to_i())
+  @line =Line.find(params.fetch("id").to_i())
   erb(:line)
 end
+
+get("/lines/:id/edit") do
+  @line = Line.find(params.fetch("id").to_i())
+  erb(:line_edit)
+end
+
+
+patch("/lines/:id") do
+  line_info = params.fetch("line_info")
+  @line = Line.find(params.fetch('id').to_i())
+  @line.update({:line_info => line_info})
+  erb(:line)
+end
+
+delete("/lines/:id") do
+  @line = Line.find(params.fetch("id").to_i())
+  @line.delete()
+  @lines = Line.all()
+  erb(:index)
+end
+
+# post("/stations") do
+#   station_info = params.fetch("station_info")
+#   line_id = params.fetch("line_id").to_i()
+#   station = Station.new({:station_info => station_info, :line_id => line_id})
+#   station.save()
+#   @line = Line.find(line_id)
+#   erb(:line)
+# end

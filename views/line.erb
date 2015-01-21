@@ -21,4 +21,5 @@
 <p> There are no stations yet. </p>
 <% end %>
 
-<a href='/'>Return to Main Page</a>
+<p><a href="/lines/ <%= @line.id() %>/edit">Edit <%= @line.line_info() %> line</a></p>
+<p><a href='/'>Return to Main Page</a></p>

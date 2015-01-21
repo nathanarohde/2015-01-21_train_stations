@@ -47,7 +47,7 @@ describe("#Line") do
       expect(line1).to(eq(line2))
     end
   end
- 
+
   describe('#stations') do
     it('returns an array of stations for that line') do
       test_line = Line.new({:line_info => 'Gold', :id => nil})
@@ -57,6 +57,28 @@ describe("#Line") do
       test_station2 = Station.new({:station_info => "Portland", :line_id => test_line.id()})
       test_station2.save()
       expect(test_line.stations()).to(eq([test_station, test_station2]))
+    end
+  end
+
+  describe("#update") do
+    it("lets you update lines in the database") do
+      line = Line.new({:line_info => "Blue", :id => nil})
+      line.save()
+      line.update({:line_info => "Green"})
+      expect(line.line_info()).to(eq("Green"))
+    end
+  end
+
+  describe('#delete') do
+    it("deletes a line's station from the database") do
+      line = Line.new({:line_info => "Gold", :id => nil})
+      line.save()
+      station = Station.new({:station_info => "Portland", :line_id => line.id()})
+      station.save()
+      station2 = Station.new({:station_info => "Tokyo", :line_id => line.id()})
+      station2.save()
+      line.delete()
+      expect(Station.all()).to(eq([]))
     end
   end
 end

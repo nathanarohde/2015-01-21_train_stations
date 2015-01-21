@@ -46,4 +46,14 @@ class Line
     line_stations
   end
 
+  define_method(:update) do |attributes|
+    @line_info = attributes.fetch(:line_info)
+    @id = self.id()
+    DB.exec("UPDATE lines SET line_info = '#{@line_info}' WHERE id = #{@id};")
+  end
+
+  define_method(:delete) do
+    DB.exec("DELETE FROM lines WHERE id = #{self.id()};")
+    DB.exec("DELETE FROM stations WHERE line_id = #{self.id()};")
+  end
 end
