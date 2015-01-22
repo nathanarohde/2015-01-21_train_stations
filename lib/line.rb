@@ -41,7 +41,8 @@ class Line
     stations.each() do |station|
       station_info = station.fetch("station_info")
       line_id = station.fetch("line_id").to_i()
-      line_stations.push(Station.new({:station_info => station_info, :line_id => line_id}))
+      station_id = station.fetch("id").to_i()
+      line_stations.push(Station.new({:station_info => station_info, :line_id => line_id, :station_id => station_id }))
     end
     line_stations
   end

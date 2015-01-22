@@ -52,9 +52,9 @@ describe("#Line") do
     it('returns an array of stations for that line') do
       test_line = Line.new({:line_info => 'Gold', :id => nil})
       test_line.save()
-      test_station = Station.new({:station_info => "Tokyo", :line_id => test_line.id()})
+      test_station = Station.new({:station_info => "Tokyo", :line_id => test_line.id(), :station_id => 1})
       test_station.save()
-      test_station2 = Station.new({:station_info => "Portland", :line_id => test_line.id()})
+      test_station2 = Station.new({:station_info => "Portland", :line_id => test_line.id(), :station_id => 2})
       test_station2.save()
       expect(test_line.stations()).to(eq([test_station, test_station2]))
     end
@@ -73,9 +73,9 @@ describe("#Line") do
     it("deletes a line's station from the database") do
       line = Line.new({:line_info => "Gold", :id => nil})
       line.save()
-      station = Station.new({:station_info => "Portland", :line_id => line.id()})
+      station = Station.new({:station_info => "Portland", :line_id => line.id(), :station_id => 1})
       station.save()
-      station2 = Station.new({:station_info => "Tokyo", :line_id => line.id()})
+      station2 = Station.new({:station_info => "Tokyo", :line_id => line.id(), :station_id => 2})
       station2.save()
       line.delete()
       expect(Station.all()).to(eq([]))
